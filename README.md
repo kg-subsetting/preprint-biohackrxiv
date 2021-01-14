@@ -58,9 +58,9 @@ affiliations:
     index: 8
 date: 14 January 2021
 bibliography: paper.bib
-event: Fukuoka2019
-group: Logic programming group
-authors_short: Chris Mungall & Hirokazu Chiba \emph{et al.}
+event: BH20EU
+group: Wikidata subsetting
+authors_short: Jose E. Labra \emph{et al.}
 ---
 
 <!--
@@ -73,10 +73,48 @@ The paper.md, bibtex and figure file can be found in this repo:
 
 # Introduction
 
-TODO: Motivation and use cases
+- Short sentence about Knowledge graphs and wikidata. 
+- Talk about entity schemas at Wikidata which are based on ShEx [@EricSemantics2014]
+
+## Motivation
+
+TODO
+
+## Use cases
 
 # Description of different approaches and pipeline
 
+![Diagram presenting the different approaches \label{fig}](./schema.png)
+
+## Describing the subsets
+
+- Using Entity schemas created manually
+- Generating entity schemas from instance data
+
+## Wikidata subsetting language
+
+- TODO: Describe the idea...
+- Generates SPARQL Construct queries
+
+# Extraction of subsets from wikidata
+
+## Slurping 
+
+## WDumper
+
+# Creating the subset
+
+- Transforming and enriching the RDF dump using schema.org
+- WikidataIntegrator
+
+# Discussion
+
+TODO: Review...
+
+- Talk about docker image
+- Future work: Wikidata subsetting as a service?
+
 # Conclusions
+
 
 # References
