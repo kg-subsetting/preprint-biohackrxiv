@@ -1,6 +1,6 @@
 #! /usr/bin/env ruby
 #
-# Generate a PDF from markdown input (paper.md) in dir
+# Generate a PDF from markdown input (README.md) in dir
 #
 # Usage:   gen-pdf [--debug] dir [target-journal paper.pdf]
 #
@@ -28,7 +28,7 @@ outfn=ARGV.shift
 outfn="paper.pdf" if not outfn
 $stderr.print("Generating #{outfn}\n")
 
-papermd = dir + "/" + "paper.md"
+papermd = dir + "/" + "README.md"
 raise "Can not find markdown file #{papermd}" if not File.exist?(papermd)
 
 paperbib = dir + "/" + "paper.bib"
@@ -96,7 +96,7 @@ cmd = <<COMMAND
       -V event_location='#{EVENT[:location]}'
       -o '#{outfn}' -V geometry:margin=1in
       #{ ( paperbib ? "--filter pandoc-citeproc" : "") }
-      paper.md
+      README.md
       --from markdown+autolink_bare_uris
       --template '#{TEX}'
       --csl=#{CSL}
