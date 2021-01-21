@@ -128,6 +128,10 @@ This report collects the main advances developed during the virtual [Biohackatho
 
 # Description of the approaches
 
+In this section we report the different approaches that were considered. As a running example we departed from the GeneWiki project following [@Waagmeester2020]. That paper a figure with a UML-like data model that represents the main concepts related with life sciences in the GeneWiki project. That figure was taken as the initial point and the goal was to obtain a wikidata subset that followed the data model represented in that figure.
+
+> [name=Labra] I am not sure if we can add a copy of that figure here or just refer to it...should we ask the publishers?
+
 ## General overview
 
 > [name="Labra"] 
@@ -199,9 +203,13 @@ Internally, the rules are represented by a JSON configuration file.
 > [name="labra"] We could go into more details and describe the JSON configuration file...but not sure if it is necessary...
 
 
-### ShEx and entity schemas:
-- ShEx created manually
-- Automatically generating entity schemas: sheXer
+### ShEx and entity schemas
+
+ShEx was created in 2014 as a human-readable and concise language for RDF validation and description [@EricSemantics2014]. 
+In 2019, ShEx was adopted by Wikidata to define entity schemas [@Thornton2019].
+> [name=Labra] TODO...
+> - ShEx created manually
+> - Automatically generating entity schemas: sheXer
 
 
 ### Wikidata subsetting language
@@ -274,7 +282,7 @@ The following example uses a Wikidata ShEx definition to construct a minimal con
 - Interactively explore the data available through the SPARQL endpoint using Rhizomer
     - Available as Docker containers: https://github.com/rhizomik/rhizomerEye
 
-![](https://i.imgur.com/K8MjZkj.png)
+<!-- ![](https://i.imgur.com/K8MjZkj.png) -->
 
 ### SPARQL queries and demos
 
