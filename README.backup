@@ -73,6 +73,8 @@ group: Wikidata subsetting
 authors_short: Jose E. Labra \emph{et al.}
 ---
 
+[![hackmd-github-sync-badge](https://hackmd.io/P1B_FOOERlCfNa7CQKeShg/badge)](https://hackmd.io/P1B_FOOERlCfNa7CQKeShg)
+
 <!-- You can comment/uncomment the following if you want or not the table of contents...-->
 [TOC]
 
@@ -90,13 +92,19 @@ The paper.md, bibtex and figure file can be found in this repo:
 
 Knowledge graphs have successfully been adopted by academia, governement and industry [ref?](/Ubthax_BTumBTIoKqZSYug) to represent large scale knowledge bases. 
 Open and collaborative knowledge graphs such as Wikidata capture knowledge from different domains and harmonize them under a common format, making it easier for researchers to access the data while also supporting Open Science...
-Wikidata keeps getting bigger and better, which subsumes integration use cases. Having a large amount of data such as the one presented in a scopeless Wikidata offers some advantages, e.g., unique access point and common format, but also poses some challenges, e.g., performance.
-Regular wikidata users are not unfamiliar with running into frequent timeouts of submitted queries. Due to its popularity, limits have been imposed to allow for fair access to many. 
-However this suppreses many interesting and complex queries that require more computational power and resources. Replicating Wikidata on one's own infrastructure can be a solution which also offers a snapshot of the contents of wikidata at some given point in time. 
-Creating those subsets has emerged as an alternative to reduce the amount and spectrum of data offered by Wikidata. 
-Subsets are extracted from Wikidata, restricting their data to, for instance, a particular domain or use case. Less data makes more complex queries possible while still keeping the compatibility with the whole Wikidata as the model is kept. 
- 
-In this paper we report the tasks done as part of a Wikidata subsetting project during the Virtual BioHackathon 2020 and SWAT4LS'21, which had already started at Biohackathon 2019, Swat4HCLS hackathon 2019, virtual COVID biohackathon. We describe some approaches we identified to create subsets and some susbsets from the Life Sciences domain as well as other use cases we also discussed. 
+> [name=Labra] I just want to say that wikidata is big and important (and to try comments :)
+
+Wikidata keeps getting bigger and better, which subsumes integration use cases. Having a large amount of data such as the one presented in a scopeless Wikidata offers some advantages, e.g., unique access point and common format, but also poses some challenges, e.g., performance. Regular wikidata users are not unfamiliar with running into frequent timeouts of submitted queries. Due to its popularity, limits have been imposed to allow for fair access to many. However this suppreses many interesting and complex queries that require more computational power and resources. Replicating Wikidata on one owns infrastructure is a solurtion 
+> [name=Andra] reference to Addshore blog on copying wikidata
+(/micwGyuUQqmZYvAkJsQ5pw) However, with the sheer size of wikidata and its ongoing growth, this can be expensive to do. In most, if not all of those complex use-cases only subsets of Wikidata are actually needed. With smaller subsets it is possible to replicate those parts on less expensive infrastructure. During a series of Hackathon 
+> [name=Andra] references to Biohackathon 2019, Swat4HCLS hackathon 2019, virtual COVID biohackathon, virtual barcelona hackathon, virtual SWAT4HCLS hackathon 2021
+> 
+creating those subsets have emerged as an alternative to reduce the amount and spectrum of data offered by Wikidata. Subsets are extracted from Wikidata, restricting their data to, for instance, a particular domain or use case. Less data makes more complex queries possible while still keeping the compatibility with the whole Wikidata as the model is kept.
+> [name=Labra] Short sentence about why we would like subsets...
+> 
+In this paper we describe our Wikidata subsetting efforts during the Virtual BioHackathon 2020 and SWAT4LS , including some approaches to create subsets and some susbsets from the Life Sciences domain.
+> [name=Labra] Short sentence about what we did...
+> 
 
 
 # Introduction
@@ -104,9 +112,8 @@ In this paper we report the tasks done as part of a Wikidata subsetting project 
 > [name="Labra"] Short motivation (use cases will be in a separate section later)
 
 There are several benefits and use cases derived from extracting knowledge graphs subsets. 
-For example, it is possible to extract datasets for a specific research task from a given knowledge graph with multiple data. 
-It also allows users to store these subsets locally and reduce database scaling and costs. 
-The extracted datasets can be a useful resource for researchers which can analyze the evolution of the data and develop on-the-fly transformations and subsets for their specific needs.
+For example, it is possible to extract datasets for a specific research task from a given knowledge graph with multiple data. It also allows users to store these subsets locally and reduce database scaling and costs. 
+The extracted datasets can be a useful resource for researchers which can analyze the evolution of the data and develop on-the-fly transformations and subsets for their specific needs. 
 
 ## Background
 
@@ -114,14 +121,15 @@ During the last years there were multiple biohackathon efforts to develop mechan
 One example would be the [G2G language](https://github.com/elixir-europe/BioHackathon-projects-2019/blob/master/projects/28/src/g2g/wikidata_disease.g2g) created in a 2019 Biohackathon-Europe project, which used a mixture of SPARQL expressions and Cypher patterns to extract property graphs. 
 > [name="Labra"] The reference to G2G is a bit ugly...it points to just an example of the G2G...I though about including a reference to the [github repo](https://github.com/elixir-europe/BioHackathon-projects-2019/tree/master/projects/28) but it doesn't mention the G2G language...do we have a better reference to cite?
 
-An initial effort started during Biohackathon 2019 and SWAT4(HC)LS 2019 to define the topical use cases and main methods which was collected as a some [informal notes](https://docs.google.com/document/d/1MmrpEQ9O7xA6frNk6gceu_IbQrUiEYGI9vcQjDvTL9c/edit#heading=h.7xg3cywpkgfq) that were later added to a [Wikidata project](https://www.wikidata.org/wiki/Wikidata:WikiProject_Schemas/Subsetting). 
-Later, at the virtual Covid-19 biohackathon in April, an initial prototype was started to use ShEx schemas to define the subsets to be extracted from a wikibase instance.
+An initial effort started during SWAT4(HC)LS 2019 to define the topical use cases and main methods which was collected as a some [informal notes](https://docs.google.com/document/d/1MmrpEQ9O7xA6frNk6gceu_IbQrUiEYGI9vcQjDvTL9c/edit#heading=h.7xg3cywpkgfq) that were later added to a [Wikidata project](https://www.wikidata.org/wiki/Wikidata:WikiProject_Schemas/Subsetting). 
+Later, at the virtual Covid-19 biohackathon in April, an initial prototype was started to use ShEx schemas to define the subsets to be extracted from a wikibase instance. 
 
 This report collects the main advances developed during the virtual [Biohackathon 2020](https://www.biohackathon-europe.org/), [project 35](https://github.com/elixir-europe/BioHackathon-projects-2020/tree/master/projects/35) which were complemented with the [SWAT4HCLS virtual hackathon](https://swat4hcls.wiki.opencura.com/wiki/Main_Page) in january 2021.
 
 # Description of activities
 
 In this section we report the different activities that were done during the Biohackathon and the SWAT4LS events. 
+
 
 ## General overview
 
@@ -203,77 +211,20 @@ which not only retrieves the data but also transforms it using properties from t
 
 ### Filtering by rule patterns
 
-[WDumper](https://wdumps.toolforge.org/) is a tool created by Benno Fünkfstük that generates Wikidata RDF dumps on demand. 
-The tool is based on [wikidata Toolkit](https://github.com/Wikidata/Wikidata-Toolkit) and allows the user to select the desired entities and properties according to rule patterns, as well as other settings like labels, descriptions, aliases, sitelinks, etc. 
-Upon request the service creates the RDF dumps which can later be downloaded. 
+[WDumper](https://wdumps.toolforge.org/) is a tool created by Benno Fünkfstük that generates Wikidata RDF dumps on demand. The tool is based on [wikidata Toolkit](https://github.com/Wikidata/Wikidata-Toolkit) and allows the user to select the desired entities and properties according to rule patterns, as well as other settings like labels, descriptions, aliases, sitelinks, etc. Upon request the service creates the RDF dumps which can later be downloaded. 
 
 Internally, the rules are represented by a JSON configuration file. 
-The rules are patterns that identify either an intended entity or property and retrieve all content that is related with them. 
-An example of a rule that obtains all entities that are instances of `wd:Q4936952` (anatomical structure) could be:
 
-```
-{
-    "version": 1,
-    "__name": "anatomical_structure",
-    "entities": [
-      {
-        "id": 3,
-        "type": "item",
-        "properties": [
-          {
-            "id": 4,
-            "type": "entityid",
-            "rank": "all",
-            "value": "Q4936952",
-            "property": ""
-          }
-        ]
-      }
-    ],
-    "meta": true,
-    "aliases": true,
-    "sitelinks": true,
-    "descriptions": true,
-    "labels": true,
-    "statements": [
-      {
-        "id": 5,
-        "qualifiers": false,
-        "simple": true,
-        "rank": "all",
-        "full": false,
-        "references": false
-      }
-    ]
-  },
-  . . .
-```
-
-The JSON configuration file contains several properties related with the wikidata data model so it is possible to declare if we also want to retrieve qualifiers, ranks, etc.
-
-> [name="labra"] In the previous sentence I mention the wikidata data model...review if we say something about it earlier...
+> [name="labra"] We could go into more details and describe the JSON configuration file...but not sure if it is necessary...
 
 
 ### ShEx and entity schemas
 
 ShEx was created in 2014 as a human-readable and concise language for RDF validation and description [@EricSemantics2014]. 
-In 2019, ShEx was adopted by Wikidata to define entity schemas [@Thornton2019] and there is already a [directory of entity schemas](https://www.wikidata.org/wiki/Wikidata:Database_reports/EntitySchema_directory) which have been collaboratively defined by the community.
-
-During the Biohackathon 2020 we defined a ShEx schema based on the GeneWiki data model. The full ShEx schema is [here](https://github.com/kg-subsetting/biohackathon2020/blob/main/use_cases/genewiki/genewiki.shex). Using RDFShape, it is also possible to have [UML-like visualizations](http://rdfshape.weso.es/link/16076069146) of the ShEx schemas. As an example, the shape of `anatomical_structure` is:
-
-```shex
-:anatomical_structure EXTRA wdt:P31 {
-  wdt:P31  [ wd:Q4936952 ] ;
-  wdt:P361 @:anatomical_structure * ; 
-  wdt:P527 @:anatomical_structure *
-}
-```
-
-ShEx validators can use a technique called slurp which consists of keeping track of the triples that they are being visited during validation. 
-Using slurp it is possible to obtain wikidata subsets directly from the ShEx schemas.
-
-In some cases, manually creating a ShEx data model may detract the users which just want to obtain a subset which is similar to some example data. 
-[sheXer](http://shexer.weso.es/)  is a tool that automatically extracts ShEx schemas from instance data which can be used in this case. 
+In 2019, ShEx was adopted by Wikidata to define entity schemas [@Thornton2019].
+> [name=Labra] TODO...
+> - ShEx created manually
+> - Automatically generating entity schemas: sheXer
 
 
 ### Wikidata subsetting language
@@ -284,38 +235,14 @@ ShEx can be too expressive and it may contain constructs that are
 
 ## Extraction of subsets from wikidata
 
-### Using Shape Expressions and Slurp
+### Slurping 
 
-During validation, ShEx processors can keep track of the triples that the validation process meet creating an RDF dump that follows the ShEx schema. 
-As an example, given the ShEx schema of anatomical structure. We may start the validation by using the following ShapeMap:
-
-```shex
-{FOCUS wdt:P31 wd:wd:Q4936952}@:anatomical_structure
-```
-
-which means that we will validate all nodes that have property `wdt:P31` with value `wd:Q4936952` (anatomical_structure). 
-The validator would find candidate nodes to validate like: 
-
-```
-wd:Q1074 (skin)
-wd:Q7891 (respiratory system)
-... 
-wd:Q168291 (cornea)
-wd:Q169342 (retina)
-
-. . .
-```
-
-Notice that as the shape indicates that anatomical structures can be part of other anatomical structures using property `wdt:P361`, 
-When the ShEx validator validates the cornea node it will find the triple `wd:Q168291 wdt:P361 wd:Q7364`, collect it, and continue validating the `wd:Q7364` node. This graph traversal process allows to collect an RDF dump which is based on the nodes that are really linked by the graph.
+> [name=Labra]
+> TODO: describe the slurping process
+> shex.js and pyshex already support slurp (shex-s should do it soon...)
 
 The following example uses a Wikidata ShEx definition to construct a minimal conforming graph from Wikidata using PyShEx slurper. It has been deployed as a 
 [Jupyter notebook](https://github.com/hsolbrig/PyShEx/blob/master/notebooks/WikiSlurper.ipynb).
-
-During the Biohackathon we detected 2 issues:
-
-- The Wikidata's SPARQL endpoint uses blank nodes.
-- The slurp process can generate too many requests to Wikidat's endpoint.
 
 > Talk about issue with blank nodes and endpoints...
 > Phabricator ticket: https://phabricator.wikimedia.org/T267782
@@ -329,20 +256,13 @@ During the Biohackathon we detected 2 issues:
 
 > [name=Labra]
 > We could describe the process followed by WDumper if we have more information/details about it
-> `@@Guillermo` could describe here how he combined the SPARQL construct queries with WDumper
-
-### WDumper + SPARQL Construct Queries
-
-> [name=Labra]
-> I think `@@Guillermo` uses a combination of WDumper + SPARQL construct queries...confirm...
-> https://github.com/ingmrb/WikidataSubsetting
-
+> @@Guillermo could describe here how he combined the SPARQL construct queries with WDumper
 
 ### Linking to other graphs
 
 > [name=Labra] 
 > Talk here about the process to link the extracted contents to other contents...for example, in our running example, they linked it to scrapped data from mobidb and disprot
-> `@@Liza` could add here some description of the scrapping
+> @@Liza could add here some description of the scrapping
 > github repo: https://github.com/elizusha/scraper
 > 
 
@@ -352,15 +272,10 @@ During the Biohackathon we detected 2 issues:
 > [name=Labra]
 > Talk about 
 > - Wikibase
-> - WikidataIntegrator: https://github.com/SuLab/WikidataIntegrator
-> - I think Andra created a script and a docker image linking everything with WikidataIntegrator...
+> - WikidataIntegrator?
+
 
 ## Publishing and using the subsets
-
-During the Biohackathon 2020 the main focus of the team was to create a wikidata subsetting. 
-After the biohackathon team leaded by Dan Brickley accomplished to create a [docker image](http://185.78.196.96:8889/bigdata/#splash) of a wikidata subset based on GeneWiki which at the same time contained triples that have been scrapped from [mobidb](https://mobidb.org/) and [disprot](https://www.disprot.org/). 
-In this way, during SWAT4LS hackathon the team focused on how those wikidata subsets could be used and published.
-
 
 ### Documenting the subset
 
