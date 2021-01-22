@@ -126,11 +126,10 @@ Later, at the virtual Covid-19 biohackathon in April, an initial prototype was s
 
 This report collects the main advances developed during the virtual [Biohackathon 2020](https://www.biohackathon-europe.org/), [project 35](https://github.com/elixir-europe/BioHackathon-projects-2020/tree/master/projects/35) which were complemented with the [SWAT4HCLS virtual hackathon](https://swat4hcls.wiki.opencura.com/wiki/Main_Page) in january 2021.
 
-# Description of the approaches
+# Description of activities
 
-In this section we report the different approaches that were considered. As a running example we departed from the GeneWiki project following [@Waagmeester2020]. That paper a figure with a UML-like data model that represents the main concepts related with life sciences in the GeneWiki project. That figure was taken as the initial point and the goal was to obtain a wikidata subset that followed the data model represented in that figure.
+In this section we report the different activities that were done during the Biohackathon and the SWAT4LS events. 
 
-> [name=Labra] I am not sure if we can add a copy of that figure here or just refer to it...should we ask the publishers?
 
 ## General overview
 
@@ -138,14 +137,30 @@ In this section we report the different approaches that were considered. As a ru
 > TODO: Add a better version of the diagram
 ![Diagram presenting the different approaches \label{fig}](./schema.png)
 
+As a running example we departed from the GeneWiki project following [@Waagmeester2020]. That paper a figure with a UML-like data model that represents the main concepts related with life sciences in the GeneWiki project. That figure was taken as the initial point and the goal was to obtain a wikidata subset that followed the data model represented in that figure.
+
+> [name=Labra] I am not sure if we can add a copy of that figure here or just refer to it...should we ask the publishers?
+
+
+We classify the activities in 4 parts:
+- Describing the subsets: how do we describe what subset of wikidata we are interested in? 
+- Extraction techniques: which approach can we follow to extract the subset from wikidata?
+- Publishing and using the subset: once we have the subset, how do we publish it so it can be used?
+- Use cases: what use cases did we identify? 
 
 
 ## Describing the subsets
 
+A first step to obtain a Knowledge Graph subset is to describe what we expect to extract. Given that we are talking about  really big data, this process must be done in a machine-processable way. Also, given that those subsets are intended to be used by people, they should be easily described by some domain experts. 
 
-A first step to obtain a KG subset is to describe the entities and properties that are of interest for a given use case. 
-Next it is necessary to describe the bounderies of that subset in its larger context of all of Wikidata.
-We identified several possibilities:
+A common use case is to define the boundaries of the subset by some topic identifying the type of entities or the properties that are of interest for a given use case.
+Next, it is necessary to describe the bounderies of that subset in its larger context of all of Wikidata.
+
+We identified several approaches to describe the subsets:
+- SPARQL Construct queries
+- Filtering by rule patterns
+- Shape Expressions and entity schemas
+- Defining a domain specific language
 
 ### SPARQL construct queries
 
@@ -194,9 +209,9 @@ CONSTRUCT {
 which not only retrieves the data but also transforms it using properties from the [schema.org vocabulary](https://schema.org/).
 
 
-### WDumper
+### Filtering by rule patterns
 
-[WDumper](https://wdumps.toolforge.org/) is a tool created by Benno Fünkfstük that generates Wikidata RDF dumps on demand. The tool is based on [wikidata Toolkit](https://github.com/Wikidata/Wikidata-Toolkit) and allows the user to select the desired entities and properties according to rules, as well as other settings like labels, descriptions, aliases, sitelinks, etc. Upon request the service creates the RDF dumps which can later be downloaded. 
+[WDumper](https://wdumps.toolforge.org/) is a tool created by Benno Fünkfstük that generates Wikidata RDF dumps on demand. The tool is based on [wikidata Toolkit](https://github.com/Wikidata/Wikidata-Toolkit) and allows the user to select the desired entities and properties according to rule patterns, as well as other settings like labels, descriptions, aliases, sitelinks, etc. Upon request the service creates the RDF dumps which can later be downloaded. 
 
 Internally, the rules are represented by a JSON configuration file. 
 
