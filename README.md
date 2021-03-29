@@ -46,6 +46,8 @@ authors:
     affiliation: 9
   - name: Leyla Jael Castro
     affiliation: 10    
+  - name: Daniel Mietchen
+    affiliation: 11
     
 affiliations:
   - name: WESO research group, University of Oviedo, Spain
@@ -68,6 +70,8 @@ affiliations:
     index: 9
   - name: ZB MED Information Centre for Life Sciences, Germany
     index: 10    
+  - name: University of Virginia, USA
+    index: 11    
 date: 14 January 2021
 bibliography: paper.bib
 event: BH20EU
