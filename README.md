@@ -75,8 +75,8 @@ group: Wikidata subsetting
 authors_short: Jose E. Labra \emph{et al.}
 ---
 
-<!-- You can comment/uncomment the following if you want or not the table of contents...-->
-[TOC]
+<!-- You can comment/uncomment the following if you want or not the table of contents...
+[TOC]-->
 
 <!--
 
@@ -96,7 +96,7 @@ Knowledge graphs have successfully been adopted by academia, governement and ind
 Open and collaborative knowledge graphs such as Wikidata capture knowledge from different domains and harmonize them under a common format, making it easier for researchers to access the data while also supporting Open Science.
 
 Wikidata keeps getting bigger and better, which subsumes integration use cases. Having a large amount of data such as the one presented in a scopeless Wikidata offers some advantages, e.g., unique access point and common format, but also poses some challenges, e.g., performance.
-Regular wikidata users are not unfamiliar with running into frequent timeouts of submitted queries. Due to its popularity, limits have been imposed to allow for fair access to many. 
+Regular wikidata users are not unfamiliar with running into frequent timeouts of submitted queries. Due to its popularity, limits have been imposed to allow for fair access to many.
 However this suppreses many interesting and complex queries that require more computational power and resources. Replicating Wikidata on one's own infrastructure can be a solution which also offers a snapshot of the contents of wikidata at some given point in time. 
 
 There is no need to replicate Wikidata in full, it is possible to work with subsets targeting, for instance, a particular domain. Creating those subsets has emerged as an alternative to reduce the amount and spectrum of data offered by Wikidata. Less data makes more complex queries possible while still keeping the compatibility with the whole Wikidata as the model is kept. 
@@ -106,7 +106,9 @@ In this paper we report the tasks done as part of a Wikidata subsetting project 
 
 # Introduction
 
-> [name="Labra"] Short motivation (use cases will be in a separate section later)
+<!--
+>> [name="Labra"] Short motivation (use cases will be in a separate section later)
+-->
 
 There are several benefits and use cases derived from extracting knowledge graphs subsets. 
 For example, it is possible to extract datasets for a specific research task from a given knowledge graph with multiple data. 
@@ -115,7 +117,10 @@ The extracted subsets can be a useful resource for researchers which can analyze
 
 During the last years there were multiple BioHackathon efforts to develop mechanisms which extract subsets from linked data. 
 One example would be the [G2G language](https://github.com/elixir-europe/BioHackathon-projects-2019/blob/master/projects/28/src/g2g/wikidata_disease.g2g) created in a 2019 BioHackathon Europe project, which used a mixture of SPARQL expressions and Cypher patterns to extract property graphs. 
+
+<!-- 
 > [name="Labra"] The reference to G2G is a bit ugly...it points to just an example of the G2G...I though about including a reference to the [github repo](https://github.com/elixir-europe/BioHackathon-projects-2019/tree/master/projects/28) but it doesn't mention the G2G language...do we have a better reference to cite?
+-->
 
 An initial effort started during BioHackathon 2019 and SWAT4(HC)LS 2019 to define the topical use cases and main methods which were collected as [informal notes](https://docs.google.com/document/d/1MmrpEQ9O7xA6frNk6gceu_IbQrUiEYGI9vcQjDvTL9c/edit#heading=h.7xg3cywpkgfq) that were later added to a [Wikidata project](https://www.wikidata.org/wiki/Wikidata:WikiProject_Schemas/Subsetting). 
 Later, at the virtual Covid-19 BioHackathon in April, an initial prototype was started to use ShEx schemas to define the subsets to be extracted from a wikibase instance.
@@ -128,14 +133,17 @@ In this section we report the different activities that were done during the Bio
 
 ## General overview
 
+<!-- 
 > [name="Labra"] 
 > TODO: Add a better version of the diagram
 ![Diagram presenting the different approaches \label{fig}](./schema.png)
+-->
 
 As a running example we departed from the GeneWiki [@tsueng_gene_2016] project following [@Waagmeester2020]. That paper includes a figure with a UML-like data model representing the main concepts related with life sciences in the GeneWiki project. That figure was taken as the initial point with the goal of obtaining a WikiData subset that followed the data model represented in that figure.
 
+<!-- 
 > [name=Labra] I am not sure if we can add a copy of that figure here or just refer to it...should we ask the publishers? --> It depends on the license
-
+-->
 
 We classify the activities in 4 parts:
 - Describing the subsets: how do we describe what subset of wikidata we are interested in? 
@@ -158,11 +166,12 @@ We identified several approaches to describe subsets:
 
 ### SPARQL construct queries
 
+<!--
 > [name=Labra]
 > We could use a running example which would help readers to follow the paper better. I chose "anatomical_structures" because it was the first one I had at hand...maybe a better one is better?
 > [name=Gray]
 > I agree a running example would be useful. We could also include the English statement of the example in the opening of the section, or the use cases if they are moved before this section.
-
+-->
 
 One approach to extract data from any SPARQL endpoint is to use SPARQL construct queries. As an example, the [following query] (https://github.com/ingmrb/WikidataSubsetting/blob/main/Public%20queries%20method/SPARQL%20queries/Wiki%20types/anatomical_structure.sparql) can be used to retrieve anatomical structures from Wikidata.
 
@@ -250,10 +259,12 @@ An example of a rule that obtains all entities that are instances of `wd:Q493695
 
 The JSON configuration file contains several properties related with the wikidata data model so it is possible to declare if we also want to retrieve qualifiers, ranks, etc.
 
+<!-- 
 > [name="labra"] In the previous sentence I mention the wikidata data model...review if we say something about it earlier...
 > [name="Gray"] The model has not been introduced. However, none of the previous text has required the detail. If later text needs it then we should have a section eariler that gives an overview of the Wikidata model.  
 > The other question would be are we only considering Wikidata for subsetting? What about DBpedia or KGs in general? I appreciate that WDumper only works for Wikidata, but its approach could be implemented for other KGs.
-
+> [name="labra"] Indeed that's a very good question. In principle, the ShEx+slurper approach can work with any RDF-based knowledge graph, but it is true that in the biohackathon we focused mainly on Wikidata.
+-->
 
 ### ShEx and entity schemas
 
@@ -353,37 +364,33 @@ During the BioHackathon we detected 2 issues:
 
 ### WDumper
 
+<!--
 > [name=Labra]
 > We could describe the process followed by WDumper if we have more information/details about it
 > `@@Guillermo` could describe here how he combined the SPARQL construct queries with WDumper
+-->
 
 WDumper can extract information from a complete Wikidata dump at once. This dump must be in the Wikidata JSON format. Wikidata JSON dumps are published weekly under this [Wikimedia dumps page](https://dumps.wikimedia.org/wikidatawiki/entities/). The extractor part of WDumper uses the Wikidata Toolkit Java library to scroll the JSON dump and extract entities based on the filters specified by the specification file.
 
 The JSON Wikidata dump file is actually a single array of Wikidata entities. For each entity, the related information like labels, descriptions, and claims are stored in different sub-arrays (see the [Wikibase JSON data model](https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_json.html) for more information). In its navigation, WDumper selects any entity that matched in the filters, and for each selected entity, it extracts labels, descriptions, claims, etc. based on the specification file. Finally, WDumper builds an RDF structure of the extracted data using the Wikidata namespace and returns the final data into a compressed N-Triple format. It takes approximately 10 hours for WDumper to build a subset from the current Wikidata full dump.
 
-### WDumper + SPARQL Construct Queries
-
+- WDumper + SPARQL Construct Queries to extract data from wikidata, which was done in [https://github.com/ingmrb/WikidataSubsetting](this repo)
+- Scrapping and linking data from web data portals which contain bioschemas metadata like [mobidb](https://mobidb.bio.unipd.it/) and [disprot](https://disprot.org/). This step was done in [https://github.com/elizusha/scraper](this repo).
+- Creating a Wikibase instance from RDF dumps with a script and [WikidataIntegrator](https://github.com/SuLab/WikidataIntegrator)
+- 
+<!-- 
 > [name=Labra]
 > I think `@@Guillermo` uses a combination of WDumper + SPARQL construct queries...confirm...
-> https://github.com/ingmrb/WikidataSubsetting
-
-
-### Linking to other graphs
-
 > [name=Labra] 
 > Talk here about the process to link the extracted contents to other contents...for example, in our running example, they linked it to scrapped data from mobidb and disprot
 > `@@Liza` could add here some description of the scrapping
-> github repo: https://github.com/elizusha/scraper
-> 
-
-
-### Creating a Wikibase instance from RDF dumps
-
+> github repo: 
 > [name=Labra]
 > Talk about 
 > - Wikibase
-> - WikidataIntegrator: https://github.com/SuLab/WikidataIntegrator
+> - WikidataIntegrator: 
 > - I think Andra created a script and a docker image linking everything with WikidataIntegrator...
+-->
 
 ## Publishing and using the subsets
 
@@ -393,18 +400,24 @@ In this way, during SWAT4(HC)LS hackathon the team focused on how those wikidata
 
 ### Documenting the subset
 
+We have employed ShEx schemas to document the extracted subset as well as [sheXer](http://shexer.weso.es/) to automatically extract the shapes.
+
+<!-- 
 > [name=Labra]
 > - Extracting the ShEx schema using sheXer
 > 
+-->
 
 ### RDF HDT
 
+<!--
 > [name=Labra]
 > Talk about RDF HDT dumps...we had a long discussion at SWAT4(HC)LS in which Lydia, Javier Fernández and Wouter Beek participated...
+-->
 
-Extracted all data generated by the WDumper from the Blazegraph Docker image (gcr.io/wikidata-collab-1/full_graph). The data is available from https://rhizomik.net/html/~roberto/swat4hcls as separate Turtle files and an HDT file that combines all them.
+All data generated by the WDumper from the Blazegraph Docker image (gcr.io/wikidata-collab-1/full_graph) was extracted ans is available at https://rhizomik.net/html/~roberto/swat4hcls as separate Turtle files and an HDT file that combines all them.
 
-Then, published the RDF HDT file using Fuseki through a SPARQL endpoint, which is available as a Docker image, [fuseki-hdt-docker](https://github.com/rogargon/fuseki-hdt-docker).
+We also published the RDF HDT file using Fuseki through a SPARQL endpoint, which is available as a Docker image, [fuseki-hdt-docker](https://github.com/rogargon/fuseki-hdt-docker).
 
 1. Download HDT file:
 ```shell
@@ -446,13 +459,19 @@ Rhizomer is available as two Docker containers; one for the frontend and another
 
 ### SPARQL queries and demos
 
+We also developed several SPARQL queries that demoed the resulting dataset with some information provided in this [repo](https://github.com/athalhammer/danker-hdt-docker).
+
+<!-- 
 > [name=Labra]
 > We talked about providing nice SPARQL queries and/or demos about the subset we obtained...In this section it would be nice to at least describe one very nice SPARQL query showing what we accomplished...ideas?
 > - Description of https://github.com/athalhammer/danker-hdt-docker by athalhammer ?
-> 
+-->
 
 # Use cases
 
+We identified several use cases where knowledge graphs subsetting could be interesting like the Gene Wiki, Scholia, Chemistry and fact-checking.
+
+<!-- 
 ## GeneWiki
 
 > [name=Labra]
@@ -474,6 +493,7 @@ Rhizomer is available as two Docker containers; one for the frontend and another
 
 > [name=Labra]
 > We talked a bit about this use case and it think it makes sense...maybe add some prose or a real use case?
+-->
 
 ## Other activities
 
@@ -484,11 +504,14 @@ Given that the BioHackathon Europe 2020 and SWAT4(HC)LS 2021 were virtual events
 - Meeting with Lydia Pintscher, from Wikidata, to talk about the creation of Wikidata dumps using RDF HDT.
 - Meeting with Javier Fernández and Wouter Beek to talk about RDF HDT
 
+<!-- 
 > [name=Labra] I really like this: https://twitter.com/andrawaag/status/1350063285287215106
 > so I adapted it for the paper, should we quote it?
+-->
 
-The nice thing about virtual events over real events is that it allows instantly reaching out to expertise needed, and for experts on the matter join. We had several guests that would be almost impossible at a face to face event.
+As Dan Brickley pointed out during the event, "The nice thing about virtual events over real events is that it allows instantly reaching out to expertise needed, and for experts on the matter join. We had several guests that would be almost impossible at a face to face event.". See [https://twitter.com/andrawaag/status/1350063285287215106](https://twitter.com/andrawaag/status/1350063285287215106).
 
+<!-- 
 # Discussion
 
 > [name=Labra] 
@@ -503,5 +526,6 @@ The nice thing about virtual events over real events is that it allows instantly
 > 
 
 [TOC]
+-->
 
 # References
